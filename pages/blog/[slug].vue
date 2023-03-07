@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import BlockRenderer from '~~/components/notion/BlockRenderer.vue';
 
-const id = useRoute().params.id;
-const { data: post } = await useFetch<Post>(`/api/notion/page/${id}`);
+const slug = useRoute().params.slug;
+const { data: post } = await useFetch<Post>(`/api/notion/page/${slug}`);
 </script>
 
 <template>

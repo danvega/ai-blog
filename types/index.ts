@@ -5,9 +5,11 @@ declare global {
   interface Post {
     id: string;
     title: string;
+    slug: string;
     author: string;
     publishedOn: string;
     content: Block[];
+    cover: string;
   }
 
   interface Block {
@@ -73,7 +75,9 @@ declare global {
     type: string;
     text: {
       content: string;
-      link: string | null;
+      link: {
+        url: string;
+      }
     },
     annotations: {
       bold: boolean;
