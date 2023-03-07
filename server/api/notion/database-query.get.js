@@ -19,14 +19,13 @@ export default defineEventHandler(async (event) => {
     ],
   });
   const posts = [];
-
   database.results.forEach((post) => {
     posts.push({
       id: post.id,
       title: post.properties.Name.title[0].plain_text,
-      body: '',
       cover: post.properties.Image.files[0]?.file.url,
-      slug: post.properties.Slug.rich_text[0].plain_text
+      slug: post.properties.Slug.rich_text[0].plain_text,
+      excerpt: post.properties.Excerpt.rich_text[0].plain_text,
     });
   });
 

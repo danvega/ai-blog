@@ -10,6 +10,7 @@ declare global {
     publishedOn: string;
     content: Block[];
     cover: string;
+    excerpt: string;
   }
 
   interface Block {
