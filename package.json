@@ -12,6 +12,7 @@
     "nuxt": "^3.2.3"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.3"
+    "@notionhq/client": "^2.2.3",
+    "axios": "^1.3.4"
   }
 }
