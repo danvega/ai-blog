@@ -8,8 +8,7 @@ const { data: posts } = await useFetch<Post[]>('/api/notion/database-query');
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
     <div v-for="post in posts" :key="post.id" class="bg-white rounded-lg shadow-md overflow-hidden hover:opacity-75">
       <NuxtLink :to="`/blog/${post.slug}`">
-        <!-- <img :src="`/images/${post.cover}`" alt="Blog post image" class="w-full h-48 object-cover"> -->
-        <nuxt-img :src="`/images/${post.cover}`" :alt="post.title" class="w-full h-48 object-cover" />
+        <img :src="`/images/${post.cover}`" alt="Blog post image" class="w-full h-48 object-cover">
       </NuxtLink>
       <div class="p-6">
         <h2 class="text-xl font-bold mb-2">{{ post.title }}</h2>
