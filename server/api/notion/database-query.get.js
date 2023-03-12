@@ -1,8 +1,6 @@
 import { Client } from '@notionhq/client'
 import fs from 'fs';
-import Axios from 'axios';
-
-
+import fetch from 'node-fetch';
 
 export default defineEventHandler(async (event) => {
 
@@ -35,21 +33,22 @@ export default defineEventHandler(async (event) => {
       excerpt: post.properties.Excerpt.rich_text[0].plain_text,
       cover: post.properties.Image.files[0]?.name,
     });
-    // the cover images expire
-    downloadImage(post.properties.Image.files[0]?.file.url, `./public/images/${imgName}`);
+    // the cover image expires after 1 hour so we need to download it
+    downloadImage(post.properties.Image.files[0]?.file.url, `./public/images/${imgName}`)
   });
 
   async function downloadImage(url, filepath) {
-    const response = await Axios({
-        url,
-        method: 'GET',
-        responseType: 'stream'
-    });
-    return new Promise((resolve, reject) => {
-        response.data.pipe(fs.createWriteStream(filepath))
-            .on('error', reject)
-            .once('close', () => resolve(filepath));
-    });
+    fetch(url)
+    .then(
+      res =>
+        new Promise((resolve, reject) => {
+          const dest = fs.createWriteStream(filepath);
+          res.body.pipe(dest);
+          res.body.on("end", () => resolve(filepath.split("/")[3] + ' was downloaded successfully.'));
+          dest.on("error", reject);
+        })
+    )
+    .then(x => console.log(x));
   }
 
   return posts;
